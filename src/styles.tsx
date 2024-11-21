@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
+    color: '#6f6f6f',
   },
   contactItem: {
     padding: 16,

@@ -1,16 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  Button,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, Button} from 'react-native';
 import {Contact, RootStackParamList} from '../types/types';
-import {getContacts, saveContact} from '../services/storage.service';
+import {getContacts} from '../services/storage.service';
 import styles from '../styles';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
@@ -20,8 +13,8 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<
 
 function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const isFocused = useIsFocused();
+
   const [contacts, setContacts] = useState<Contact[]>([]);
 
   const loadContacts = async () => {
@@ -29,26 +22,11 @@ function HomeScreen() {
     setContacts(storedContacts);
   };
 
-  const createContactObject = (name: string, phone: string): Contact => {
-    const contact: Contact = {
-      id: String(Date.now().toString()),
-      name,
-      phone,
-    };
-    return contact;
-  };
-
-  const addContact = async () => {
-    const contact: Contact = createContactObject(name, phone);
-    await saveContact(contact);
-    setName('');
-    setPhone('');
-    loadContacts();
-  };
-
   useEffect(() => {
-    loadContacts();
-  }, []);
+    if (isFocused) {
+      loadContacts();
+    }
+  }, [isFocused]);
 
   const renderItem = ({item}: {item: Contact}) => (
     <TouchableOpacity
@@ -60,21 +38,10 @@ function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Name:</Text>
-      <TextInput
-        style={styles.input}
-        value={name}
-        onChangeText={setName}
-        placeholder="Ingresa el Nombre"
+      <Button
+        title="Añadir Contacto"
+        onPress={() => navigation.navigate('AddContact')}
       />
-      <Text style={styles.label}>Phone:</Text>
-      <TextInput
-        style={styles.input}
-        value={phone}
-        onChangeText={setPhone}
-        placeholder="Ingresa el Telefono"
-      />
-      <Button title="Añadir Contacto" onPress={addContact} />
       <Text style={styles.title}>My Contacts</Text>
       <View>
         <FlatList
