@@ -7,11 +7,19 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import {Contact} from '../types/types';
+import {Contact, RootStackParamList} from '../types/types';
 import {getContacts, saveContact} from '../services/storage.service';
 import styles from '../styles';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+type HomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Home'
+>;
 
 function HomeScreen() {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -43,7 +51,9 @@ function HomeScreen() {
   }, []);
 
   const renderItem = ({item}: {item: Contact}) => (
-    <TouchableOpacity style={styles.itemContainer}>
+    <TouchableOpacity
+      style={styles.itemContainer}
+      onPress={() => navigation.navigate('Details', {id: item.id})}>
       <Text style={styles.contactName}>{item.name}</Text>
     </TouchableOpacity>
   );

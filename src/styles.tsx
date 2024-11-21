@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   contactName: {
     fontSize: 18,
-    color: '#ccc',
+    color: '#6f6f6f',
   },
   itemContainer: {
     paddingVertical: 15,
