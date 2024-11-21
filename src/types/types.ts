@@ -6,5 +6,4 @@ export type Contact = {
 
 export type RootStackParamList = {
     Home: undefined;
-    Details: {contactId: string};
 }
