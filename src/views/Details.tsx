@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Button} from 'react-native';
 import styles from '../styles';
 import {useNavigation, RouteProp} from '@react-navigation/native';
 import {Contact, RootStackParamList} from '../types/types';
-import {getContacts} from '../services/storage.service';
+import {getContacts, deleteContact} from '../services/storage.service';
 
 type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
 };
 
 function DetailsScreen({route}: Props) {
+  const navigation = useNavigation();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [image, setImage] = useState<string | undefined>(undefined);
@@ -43,6 +44,10 @@ function DetailsScreen({route}: Props) {
       {image && (
         <Image source={{uri: image}} style={{width: 100, height: 100}} />
       )}
+      <Button
+        title="Eliminar Contacto"
+        onPress={() => deleteContact(id, navigation)}
+      />
     </View>
   );
 }
