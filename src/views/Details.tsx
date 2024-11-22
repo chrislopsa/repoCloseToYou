@@ -13,9 +13,9 @@ type Props = {
 function DetailsScreen({route}: Props) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [image, setImage] = useState<string | undefined>(undefined);
 
   const {id} = route.params;
-  console.log('id', id);
 
   useEffect(() => {
     const getContactDetails = async () => {
@@ -27,8 +27,7 @@ function DetailsScreen({route}: Props) {
         if (contact) {
           setName(contact.name);
           setPhone(contact.phone);
-          console.log(name);
-          console.log(phone);
+          setImage(contact.image);
         }
       } catch (error) {
         console.error(error);
@@ -41,6 +40,9 @@ function DetailsScreen({route}: Props) {
     <View style={styles.container}>
       <Text style={styles.contactName}>Name: {name}</Text>
       <Text style={styles.contactName}>Phone: {phone}</Text>
+      {image && (
+        <Image source={{uri: image}} style={{width: 100, height: 100}} />
+      )}
     </View>
   );
 }

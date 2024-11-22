@@ -17,7 +17,7 @@ export const saveContact = async (newContact: Contact) => {
 
 export const getContacts = async () => {
     try {
-         const contacts = await AsyncStorage.getItem(CONTACT_KEYS);
+         const contacts = await AsyncStorage.getItem(CONTACT_KEYS);   
          return contacts ? JSON.parse(contacts) : [];
     } catch (error) {
         console.error('Error getting contacts:', error);
