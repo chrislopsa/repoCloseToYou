@@ -38,10 +38,6 @@ function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Button
-        title="Añadir Contacto"
-        onPress={() => navigation.navigate('AddContact')}
-      />
       <Text style={styles.title}>My Contacts</Text>
       <View>
         <FlatList
@@ -50,6 +46,10 @@ function HomeScreen() {
           renderItem={renderItem}
         />
       </View>
+      <Button
+        title="Añadir Contacto"
+        onPress={() => navigation.navigate('AddContact')}
+      />
     </View>
   );
 }
