@@ -1,12 +1,28 @@
 import React from 'react';
+import {View, Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './src/views/Home';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import DetailsScreen from './src/views/Details';
+import AddContactScreen from './src/views/AddContact';
+import {RootStackParamList} from './src/types/types';
 
-const App: React.FC = () => {
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+function RootStack() {
   return (
-    <SafeAreaProvider>
-      <HomeScreen />
-    </SafeAreaProvider>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Details" component={DetailsScreen} />
+      <Stack.Screen name="AddContact" component={AddContactScreen} />
+    </Stack.Navigator>
   );
-};
-export default App;
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
+  );
+}
