@@ -41,6 +41,15 @@ const styles = StyleSheet.create({
     borderBottomColor: '#6f6f6f',
     borderBottomWidth: 0.5,
   },
+  button: {
+    height: 40,
+    marginBottom: 8,
+    paddingLeft: 18,
+    borderWidth: 2,
+    borderRadius: 25,
+    fontSize: 15,
+    color: '#ccc',
+  },
 });
 
 export default styles;
