@@ -5,6 +5,7 @@ import {getContacts} from '../services/storage.service';
 import styles from '../styles';
 import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import CustomButton from '../components/CustomButton';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -46,7 +47,7 @@ function HomeScreen() {
           renderItem={renderItem}
         />
       </View>
-      <Button
+      <CustomButton
         title="Añadir Contacto"
         onPress={() => navigation.navigate('AddContact')}
       />
