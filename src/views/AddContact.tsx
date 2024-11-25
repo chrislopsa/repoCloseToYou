@@ -5,6 +5,7 @@ import {saveContact} from '../services/storage.service';
 import styles from '../styles';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import CustomButton from '../components/CustomButton';
 import {
   Asset,
   CameraOptions,
@@ -73,7 +74,11 @@ function AddContactScreen() {
       }
 
       if (response.assets && response.assets[0]) {
+        console.log(response.assets);
+
         const asset: Asset = response.assets[0];
+        console.log(asset.uri);
+
         setImage(asset.uri);
       }
     } catch (error) {
@@ -131,22 +136,25 @@ function AddContactScreen() {
         placeholder="Ingresa el Telefono"
         keyboardType="phone-pad"
       />
-      <Button
-        title="Tomar una Foto"
+      <CustomButton
+        title="Tomar una foto"
         onPress={() => {
           openCamera();
         }}
       />
-      <Button
+      <CustomButton
         title="Seleccionar imagen de la Galería"
         onPress={() => {
           openGallery();
         }}
       />
-      {image && (
-        <Image source={{uri: image}} style={{width: 100, height: 100}} />
-      )}
-      <Button title="Añadir Contacto" onPress={addContact} />
+      {image && <Image source={{uri: image}} style={styles.image} />}
+      <CustomButton
+        title="Añadir Contacto"
+        onPress={() => {
+          addContact();
+        }}
+      />
     </View>
   );
 }

@@ -50,6 +50,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#ccc',
   },
+  image: {
+    width: 100,
+    height: 100,
+  },
 });
 
 export default styles;

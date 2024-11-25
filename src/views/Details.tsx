@@ -4,6 +4,7 @@ import styles from '../styles';
 import {useNavigation, RouteProp} from '@react-navigation/native';
 import {Contact, RootStackParamList} from '../types/types';
 import {getContacts, deleteContact} from '../services/storage.service';
+import CustomButton from '../components/CustomButton';
 
 type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 type Props = {
@@ -41,10 +42,8 @@ function DetailsScreen({route}: Props) {
     <View style={styles.container}>
       <Text style={styles.contactName}>Name: {name}</Text>
       <Text style={styles.contactName}>Phone: {phone}</Text>
-      {image && (
-        <Image source={{uri: image}} style={{width: 100, height: 100}} />
-      )}
-      <Button
+      {image && <Image source={{uri: image}} style={styles.image} />}
+      <CustomButton
         title="Eliminar Contacto"
         onPress={() => deleteContact(id, navigation)}
       />
